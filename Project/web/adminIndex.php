@@ -97,29 +97,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										</a>
 									</li>
 									<li>
-										<a href="#">
+										<a href="adminStaff.php">
+											<i class="fa fa-database" aria-hidden="true"></i>
+											<div class="ca-content">
+												<h4 class="ca-main"><?=$amtSt;?></h4>
+												<h3 class="ca-sub">Staff</h3>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="adminStudent.php">
+											<i class="fa fa-database" aria-hidden="true"></i>
+											<div class="ca-content">
+												<h4 class="ca-main two"><?=$amtSdt;?></h4>
+												<h3 class="ca-sub two">Student</h3>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="adminLink.php">
 											<i class="fa fa-database" aria-hidden="true"></i>
 											<div class="ca-content">
 												<h4 class="ca-main"><?=$amtcmk;?></h4>
-												<h3 class="ca-sub">Carry Mark</h3>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-database" aria-hidden="true"></i>
-											<div class="ca-content">
-												<h4 class="ca-main two"><?=$amtSt;?></h4>
-												<h3 class="ca-sub two">Staff</h3>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-database" aria-hidden="true"></i>
-											<div class="ca-content">
-												<h4 class="ca-main"><?=$amtSdt;?></h4>
-												<h3 class="ca-sub">Student</h3>
+												<h3 class="ca-sub">Link</h3>
 											</div>
 										</a>
 									</li>

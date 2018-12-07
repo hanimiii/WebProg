@@ -6,39 +6,43 @@
 		header("Location: ../index.html");
 	}
 
-	$id = $_SESSION['staffID'];
+    $id = $_SESSION['staffID'];
 
-	$sql = "SELECT * FROM staff WHERE staffID = '$id'";
+    $sql = "SELECT * FROM staff ";
 	$query = mysqli_query($db, $sql);
-	$row = mysqli_fetch_array($query);
+    $row = mysqli_fetch_array($query);
 
 	if(mysqli_num_rows($query) > 0){
 		$img = $row['staffPic'];
-    $name = $row['staffName'];
-    $user = $row['staffUsername'];
-    $email = $row['staffEmail'];
-    $pass = $row['staffPassword'];
-    $matric = $row['staffMatric'];
-    $ic = $row['staffIC'];
-    $phone = $row['staffPhone'];
+    }
+
+    if(isset($_POST['submit'])){
+        $staff1 = sanitize($_POST['staff1']);
+        $student1 = sanitize($_POST['student1']);
+        $class1 = sanitize($_POST['class1']);
+        $subject1 = sanitize($_POST['subject1']);
+
+        $sql = "INSERT INTO carrymark(markLab, markQ_A, markTest1, markTest2, markProposal, markPresentation, markReport)
+                VALUES ('0', '0', '0', '0', '0', '0', '0')";
+        $query = mysqli_query($db, $sql);
+
+        if(!$query){
+            die(mysqli_error($db));
+        }
+
+        $carryMID = mysqli_insert_id($db);
+
+        $sql = "INSERT INTO subjecttook(studentID, carryMarkID, classID, subjectID, staffID)
+                VALUES ('$student1', $carryMID, '$class1','$subject1', '$staff1')";
+        $query = mysqli_query($db, $sql);
+
+
 	}
-
-	if(isset($_POST['update'])){
-		$user = sanitize($_POST['user']);
-		$email = sanitize($_POST['email']);
-		$pass = sanitize($_POST['pass']);
-		$phone = sanitize($_POST['phone']);
-
-		$pass = md5($pass);
-		$sql = "UPDATE STAFF SET staffUsername = '$user', staffEmail = '$email', staffPassword = '$pass', staffPhone = '$phone' WHERE staffID = '$id'";
-		$query = mysqli_query($db, $sql);
-	}
-
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-<title>Profiles</title>
+<title>Link</title>
 <!-- custom-theme -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -66,33 +70,120 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="clearfix"></div>
 		<!-- //w3_agileits_top_nav-->
 		<!-- /inner_content-->
-	<div class="inner_content">
-		<div class="inner_content_w3_agile_info">
-      <div class="agile-tables">
-        <div class="w3l-table-info agile_info_shadow">
-          <form action="profile.php" method="post">
-            <table class="table table-hover">
-							<in
-              <tr>
-                <td rowspan="7" width="300px;">
-                  <img src="<?=$img;?>" class="img-thumbnail" width="65%;">
-                </td>
-                <td>Name</td>
-                <td><?=((isset($_POST['submit']))?'<input type="text" name="name" class="form-control" maxlength="50" minlength="5" value='.$name.' disabled required>':$name)?></td>
-              </tr>
-              <tr><td>Matric No.: </td><td><?=((isset($_POST['submit']))?'<input type="text" name="matric" class="form-control" maxlength="10" minlength="10" value='.$matric.' disabled required>':$matric)?></td></tr>
-              <tr><td>Identification No.: </td><td><?=((isset($_POST['submit']))?'<input type="text" name="ic" class="form-control" maxlength="12" minlength="12" value='.$ic.' disabled required>':$ic)?></td></tr>
-              <tr><td>Username: </td><td><?=((isset($_POST['submit']))?'<input type="text" name="user" class="form-control" maxlength="30" minlength="5" value='.$user.' required>':$user)?></td></tr>
-              <tr><td>Email: </td><td><?=((isset($_POST['submit']))?'<input type="text" name="email" class="form-control" maxlength="50" minlength="15" value='.$email.' required>':$email)?></td></tr>
-              <tr><td>Password: </td><td><?=((isset($_POST['submit']))?'<input type="text" name="pass" class="form-control" maxlength="30" minlength="5" value='.$pass.' required>':$pass)?></td></tr>
-              <tr><td>Phone No.: </td><td><?=((isset($_POST['submit']))?'<input type="text" name="phone" class="form-control" maxlength="11" minlength="10" value='.$phone.' required>':$phone)?></td></tr>
-							<tr><td colspan="3"><?=((isset($_POST['submit']))?'':'<input type="submit" name="submit" value="Edit" class="pull-right btn btn-primary">')?><?=((isset($_POST['submit']))?'<input type="submit" name="update" value="Update" class="btn btn-primary pull-right">':'')?><?=((isset($_POST['submit']))?' <a href="profile.php" class="btn btn-primary pull-right">Back</a>':'')?></td></tr>
-            </table>
-          </form>
-        </div>
-      </div>
-		</div>
-	</div>
+				<div class="inner_content">
+
+          <div class="w3l_agileits_breadcrumbs">
+            <div class="w3l_agileits_breadcrumbs_inner">
+              <ul>
+                <li><a href="adminindex.php">Home</a><span>«</span></li>
+                <li>Link</li>
+              </ul>
+            </div>
+          </div>
+				    <!-- /inner_content_w3_agile_info-->
+            <div class="inner_content_w3_agile_info two_in" >
+              <h2 class="w3_inner_tittle">Link</h2>
+                    <!-- tables -->
+                    <div class="agile-tables">
+                      <div class="w3l-table-info agile_info_shadow">
+
+                        <form action="adminLink.php" method="post"  onsubmit="return confirm('Are you sure?')">
+                          <table class="table table-hover">
+
+
+
+                            <!-- LECTURER -->
+                            <tr>
+                                <td>Lecturer</td>
+                                <td>Student</td>
+                                <td>Subject</td>
+                                <td>Group</td>
+                                <td></td>
+
+                            </tr>
+                            <tr>
+                                        <td style="display:none;"></td>
+                                        <td>
+                                            <select name="staff1" class="form-control" required>
+																							<option value='' selected>---</option>
+                                                <?php
+                                                    $sql = "SELECT * FROM staff where staffType = 2";
+
+                                                    $query = mysqli_query($db, $sql);
+                                                    $no = 0;
+
+                                                    while($row = mysqli_fetch_array($query, MYSQLI_ASSOC) ):
+                                                        $no = $no + 1;
+                                                    ?>
+
+                                                    <option value="<?=$row['staffID'];?>"><?=$row['staffName'];?></option>
+                                                <?php endwhile;?>
+                                            </select>
+                                        </td>
+                                        <!-- ====STUDENT==== -->
+
+                                        <td>
+                                            <select name="student1" class="form-control" required>
+																							<option value='' selected>---</option>
+                                                <?php
+                                                    $sql = "SELECT * FROM student";
+
+                                                    $query = mysqli_query($db, $sql);
+                                                    $no = 0;
+
+                                                    while($row = mysqli_fetch_array($query, MYSQLI_ASSOC) ):
+                                                        $no = $no + 1;
+                                                    ?>
+
+                                                    <option value="<?=$row['StudentID'];?>"><?=$row['StudentName'];?></option>
+                                                <?php endwhile;?>
+                                            </select>
+                                        </td>
+                                         <!-- ====SUBJECT==== -->
+                                         <td>
+                                            <select name="subject1" class="form-control" required>
+																							<option value='' selected>---</option>
+                                                <?php
+                                                    $sql = "SELECT * FROM subject ";
+
+                                                    $query = mysqli_query($db, $sql);
+                                                    $no = 0;
+
+                                                    while($row = mysqli_fetch_array($query, MYSQLI_ASSOC) ):
+                                                        $no = $no + 1;
+                                                    ?>
+
+                                                    <option value="<?=$row['subjectID'];?>"><?=$row['subjectName'];?></option>
+                                                <?php endwhile;?>
+                                            </select>
+                                        </td>
+                                        <!-- =====GROUP=== -->
+                                        <td>
+                                            <select name="class1" class="form-control" required>
+																							<option value='' selected>---</option>
+                                                <?php
+                                                    $sql = "SELECT * FROM class";
+
+                                                    $query = mysqli_query($db, $sql);
+                                                    $no = 0;
+
+                                                    while($row = mysqli_fetch_array($query, MYSQLI_ASSOC) ):
+                                                        $no = $no + 1;
+                                                    ?>
+
+                                                    <option value="<?=$row['ClassID'];?>"><?=$row['ClassName'];?></option>
+                                                <?php endwhile;?>
+                                            </select>
+                                        </td>
+                                        <td><input type="submit" name="submit"  class="btn btn-hover btn-dark btn-block"></td>
+                                    </tr>
+                          </table>
+                        </form>
+                    </div>
+                  </div>
+								</div>
+							</div>
+<br><br><br><br><br>
 <!-- banner -->
 <!--copy rights start here-->
 <div class="copyrights">
