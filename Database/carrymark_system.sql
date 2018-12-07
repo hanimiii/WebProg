@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 05, 2018 at 06:57 AM
+-- Generation Time: Dec 07, 2018 at 05:21 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -31,22 +31,25 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `carrymark`;
 CREATE TABLE IF NOT EXISTS `carrymark` (
   `carryMarkID` int(11) NOT NULL AUTO_INCREMENT,
-  `markLab` int(11) DEFAULT NULL,
-  `markQ_A` int(11) DEFAULT NULL,
-  `markTest1` int(11) DEFAULT NULL,
-  `markTest2` int(11) DEFAULT NULL,
-  `markProposal` int(11) DEFAULT NULL,
-  `markPresentation` int(11) DEFAULT NULL,
-  `markReport` int(11) DEFAULT NULL,
+  `markLab` int(11) NOT NULL,
+  `markQ_A` int(11) NOT NULL,
+  `markTest1` int(11) NOT NULL,
+  `markTest2` int(11) NOT NULL,
+  `markProposal` int(11) NOT NULL,
+  `markPresentation` int(11) NOT NULL,
+  `markReport` int(11) NOT NULL,
   PRIMARY KEY (`carryMarkID`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `carrymark`
 --
 
 INSERT INTO `carrymark` (`carryMarkID`, `markLab`, `markQ_A`, `markTest1`, `markTest2`, `markProposal`, `markPresentation`, `markReport`) VALUES
-(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(8, 0, 0, 0, 0, 0, 0, 0),
+(7, 0, 0, 0, 0, 0, 0, 0),
+(6, 0, 0, 0, 0, 0, 0, 0),
+(5, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -59,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `class` (
   `ClassID` int(11) NOT NULL AUTO_INCREMENT,
   `ClassName` varchar(256) NOT NULL,
   PRIMARY KEY (`ClassID`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `class`
@@ -86,19 +89,19 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `staffIC` varchar(14) NOT NULL,
   `staffPhone` varchar(12) NOT NULL,
   `staffPic` varchar(256) NOT NULL,
-  `staffRegistered` datetime NOT NULL,
+  `staffRegistered` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `staffType` int(11) DEFAULT NULL,
   PRIMARY KEY (`staffID`),
   KEY `staffType` (`staffType`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `staff`
 --
 
 INSERT INTO `staff` (`staffID`, `staffName`, `staffUsername`, `staffEmail`, `staffPassword`, `staffMatric`, `staffIC`, `staffPhone`, `staffPic`, `staffRegistered`, `staffType`) VALUES
-(1, 'admin', 'admin', '', 'admin', '', '', '', 'images/admin.jpg', '2018-12-01 00:00:00', 1),
-(3, 'Muhammad Eizan Bin Muhammad Aziz', 'eizanaziz', '', '123', '2012312311', '123456789012', '', 'images/admin.jpg', '2018-12-01 00:00:00', 2);
+(1, 'admin', 'admin', 'admin@yahoo.com', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'admin', 'admin', 'images/admin.jpg', '2018-12-01 00:00:00', 1),
+(3, 'Muhammad Eizan Bin Muhammad Aziz', 'eizanaziz', 'eizan@yahoo.com', '21232f297a57a5a743894a0e4a801fc3', '2012312311', '123456789012', '01128054997', 'images/admin.jpg', '2018-12-01 00:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -115,18 +118,17 @@ CREATE TABLE IF NOT EXISTS `student` (
   `StudentEmail` varchar(256) NOT NULL,
   `StudentPhone` varchar(12) NOT NULL,
   `StudentPic` varchar(256) NOT NULL,
-  `StudentRegistered` datetime NOT NULL,
+  `StudentRegistered` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`StudentID`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student`
 --
 
 INSERT INTO `student` (`StudentID`, `StudentName`, `StudentMatric`, `StudentIC`, `StudentEmail`, `StudentPhone`, `StudentPic`, `StudentRegistered`) VALUES
-(1, 'Hanif', '2017197403', '970728106287', 'hanimiii97@yahoo.com', '01128054997', 'images/admin.jpg', '2018-12-05 00:00:00'),
-(2, 'Hazim', '2017193221', '9706238111', 'amirulhazim@gmail.com', '0146373385', 'images/admin.jpg', '2018-12-05 00:00:00'),
-(3, 'Aiman', '12312312', '13213213213', '', '', '', '2018-12-05 00:00:00');
+(1, 'Raja Muhammad Hanif', '2017197403', '970728106287', 'hanimiii97@yahoo.com', '01128054997', 'images/admin.jpg', '2018-12-05 00:00:00'),
+(2, 'Hazim', '2017193221', '9706238111', 'amirulhazim@gmail.com', '0146373385', 'images/admin.jpg', '2018-12-05 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -140,15 +142,16 @@ CREATE TABLE IF NOT EXISTS `subject` (
   `subjectName` varchar(256) NOT NULL,
   `subjectDesc` varchar(256) NOT NULL,
   PRIMARY KEY (`subjectID`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subject`
 --
 
 INSERT INTO `subject` (`subjectID`, `subjectName`, `subjectDesc`) VALUES
-(1, 'CSC443', 'Web Programming'),
-(2, 'ITT532', 'Networking');
+(1, 'CSC118', 'Basic Program'),
+(2, 'QMT437', 'Operational Research'),
+(3, 'ITT430', 'Microprocessors');
 
 -- --------------------------------------------------------
 
@@ -170,17 +173,17 @@ CREATE TABLE IF NOT EXISTS `subjecttook` (
   KEY `classID` (`classID`),
   KEY `subjectID` (`subjectID`),
   KEY `staffID` (`staffID`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subjecttook`
 --
 
 INSERT INTO `subjecttook` (`stID`, `studentID`, `carryMarkID`, `classID`, `subjectID`, `staffID`) VALUES
-(1, 1, 1, 1, 1, 3),
-(2, 2, NULL, 1, 1, 3),
-(3, 1, NULL, 2, 2, 3),
-(4, 3, NULL, 2, 2, 3);
+(8, 2, 8, 2, 2, 3),
+(7, 1, 7, 2, 2, 3),
+(6, 2, 6, 1, 1, 3),
+(5, 1, 5, 1, 1, 3);
 
 -- --------------------------------------------------------
 
